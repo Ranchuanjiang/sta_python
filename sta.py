@@ -75,7 +75,7 @@ for i in  range(5):
     if i == 0 or i == 1 or i == 4:
         print("* " * (i + 1))
     if i == 2 or i == 3:
-        print("*"," "*(i * 2 -3), "*")
+        print("*"," "*(i * 2 - 3), "*")
 
 print("##" * 50)
 # 双层嵌套打印
