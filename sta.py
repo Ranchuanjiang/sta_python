@@ -79,18 +79,34 @@ for i in  range(5):
 
 print("##" * 50)
 # 双层嵌套打印
-# for i in range(1, 6):
-#     if i == 1 or i == 5 or i == 2:
-#         print("* " * i)
-#     else:
-#         for j in  range(i+1):
-#             if j == 0:
-#                 print("*", end="")
-#             elif j == 3:
-#                 print("*")
-#             elif j == 4:
-#                 print(" *")
-#             else:
-#                 print(" ", end="")
+for i in range(5):
+    for j in range(i+1):
+        if i == 4:
+            print("* ", end="")
+            continue
+        if j == 0 or j == i:
+            print("* ", end="")
+        else:
+            print("  ", end="")
 
-print("")
+    print()
+print("==" * 50)
+# 打印倒立三角
+'''
+* * * * * 
+* * * * 
+* * * 
+* * 
+* 
+'''
+for i in range(5):
+    for j in range(5 - i):
+        print("* ", end="")
+    print()
+
+print("##" * 50)
+for i in  range(5, 0, -1):
+    for j in range(i, 0, -1):
+        print("* ", end="")
+    print()
+
