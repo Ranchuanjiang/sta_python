@@ -161,7 +161,10 @@ for i in range(5):
     for j in range(5 - i):
         print(end=" ")
     for m in range(5 - i, 6):
-        if i == 4 or m == 5 or m == 5 - i:
+        if i == 4:
+            print("*", end=" ")
+            continue
+        if m == 5 or m == 5 - i:
             print("*", end=" ")
         else:
             print(" ", end=" ")
