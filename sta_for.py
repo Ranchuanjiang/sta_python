@@ -110,3 +110,63 @@ for i in  range(5, 0, -1):
         print("* ", end="")
     print()
 
+print("==" * 50)
+
+# 打印倒三角
+"""
+* * * * * 
+*     * 
+*   * 
+* * 
+* 
+"""
+for i in range(5):
+    for j in range(5 - i):
+        if i == 0 or i == 4:
+            print("* ", end="")
+            continue
+        if j == 0 or j == 4 - i:
+            print("* ", end="")
+        else:
+            print("  ", end="")
+    print()
+
+print("==" * 50)
+# 打印三角形,正三角形
+"""
+    * 
+   * * 
+  * * * 
+ * * * * 
+* * * * * 
+"""
+for i in range(5):
+    for j in range(5 - i):
+        print(" ", end="")
+    for m in range(i + 1):
+        print("* ", end="")
+    print()
+
+print("==" * 50)
+# 打印空心三角
+"""
+    * 
+   * * 
+  *   * 
+ *     * 
+* * * * *
+
+"""
+for i in range(5):
+    for j in range(5 - i):
+        print(end=" ")
+    for m in range(5 - i, 6):
+        if i == 4 or m == 5 or m == 5 - i:
+            print("*", end=" ")
+        else:
+            print(" ", end=" ")
+    print()
+
+
+
+
