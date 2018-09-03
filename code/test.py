@@ -1,22 +1,41 @@
-import logging
-import logging.handlers
-import datetime
+# 多个消费者 设置哨兵
+import multiprocessing
+from time import ctime, sleep
 
-logger = logging.getLogger('mylogger')
-logger.setLevel(logging.DEBUG)
 
-rf_handler = logging.handlers.TimedRotatingFileHandler('all.log', when='midnight', interval=1, backupCount=7, atTime=datetime.time(0, 0, 0, 0))
-rf_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(message)s"))
+def consumer(input_q):
+    print("消费者进程启动", ctime())
+    while True:
 
-f_handler = logging.FileHandler('error.log')
-f_handler.setLevel(logging.ERROR)
-f_handler.setFormatter(logging.Formatter("%(asctime)s - %(levelname)s - %(filename)s[:%(lineno)d] - %(message)s"))
+        item = input_q.get()
+        if item is None:
+            break
+        print("拿出来从", item, ctime())
+    print("结束消费者进程")
 
-logger.addHandler(rf_handler)
-logger.addHandler(f_handler)
 
-logger.debug('debug message')
-logger.info('info message')
-logger.warning('warning message')
-logger.error('error message')
-logger.critical('critical message')
+def producer(sequence, output_q):
+    print("生产者进程启动", ctime())
+    for item in sequence:
+        sleep(1)
+        output_q.put(item)
+        print("put", item, "into q")
+    print("输出完毕", ctime())
+
+
+if __name__ == "__main__":
+    q = multiprocessing.JoinableQueue()
+    cons_q = multiprocessing.Process(target=consumer, args=(q,))
+    cons_q1 = multiprocessing.Process(target=consumer, args=(q,))
+    cons_q.daemon = True
+
+    cons_q1.daemon = True
+    cons_q1.start()
+    cons_q.start()
+
+    sequence = [1, 2, 3, 4]
+    producer(sequence, q)
+    q.put(None)
+    q.put(None)
+    cons_q.join()
+    cons_q1.join
